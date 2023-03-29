@@ -15,7 +15,7 @@ public class VigenereCipherGUI extends JFrame {
     private Vigenere_GUI_V2.VigenereCipher cipher;
 
     public VigenereCipherGUI() {
-        super("Vigenere Cipher");
+        super("Vigenere Cipher by Oleg Chumin");
 
         // Создать объект шифровальщика
         cipher = new VigenereCipher();
