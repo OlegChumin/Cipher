@@ -1,4 +1,4 @@
-package VigenereGUI;
+package Vigenere_GUI_V2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,9 @@ public class VigenereCipherGUI extends JFrame {
 
     public VigenereCipherGUI() {
         super("Vigenere Cipher");
+
+        // Создать объект шифровальщика
+        cipher = new VigenereCipher();
 
         // Установить менеджер компоновки для фрейма
         setLayout(new BorderLayout());
@@ -87,6 +90,19 @@ public class VigenereCipherGUI extends JFrame {
         // Создать панель для кнопок
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
+
+        // Создать кнопку для ввода ключа
+        JButton keyButton = new JButton("Enter Key");
+        keyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String key = JOptionPane.showInputDialog(VigenereCipherGUI.this, "Enter key:");
+                if (key != null) {
+                    keyTextField.setText(key);
+                }
+            }
+        });
+        buttonPanel.add(keyButton);
 
         // Добавить кнопки на панель кнопок
         buttonPanel.add(encryptButton);

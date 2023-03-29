@@ -1,4 +1,4 @@
-package Vigenere_Graphics;
+package Vigenere_GUI_V0;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,25 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- Этот код создает графический интерфейс, который состоит из трех панелей: панель ввода, панель вывода и панель для
- ввода ключа. Пользователь может ввести текст, выбрать ключ и нажать кнопку "Encrypt" или "Decrypt", чтобы зашифровать
- или расшифровать текст. Результат выводится в текстовом поле на панели вывода.
-
- Также в классе есть два метода readFromFile и writeToFile, которые используются для чтения входных данных из файла и
- записи выходных данных в файл соответственно.
-
- Методы encrypt и decrypt в этом классе почти идентичны методам в оригинальном классе VigenereCipher, за исключением
- того, что вместо чтения и записи в файлы они используют текст, введенный пользователем через графический интерфейс, и
- отображают результаты на панели вывода.
- * */
-
 public class VigenereCipherGUI extends JFrame {
-    private final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
     private JTextArea inputTextArea;
     private JTextArea outputTextArea;
     private JTextField keyTextField;
+    private VigenereCipher cipher;
 
     public VigenereCipherGUI() {
         super("Vigenere Cipher");
@@ -66,6 +52,7 @@ public class VigenereCipherGUI extends JFrame {
         JPanel keyPanel = new JPanel();
         keyPanel.setLayout(new FlowLayout());
         keyPanel.setBorder(BorderFactory.createTitledBorder("Key"));
+        add(keyPanel, BorderLayout.NORTH);
 
         // Создать текстовое поле для ввода ключа
         keyTextField = new JTextField(20);
@@ -83,7 +70,7 @@ public class VigenereCipherGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String key = keyTextField.getText();
                 String inputText = inputTextArea.getText();
-                String encryptedText = encrypt(inputText, key);
+                String encryptedText = cipher.encrypt(inputText, key);
                 outputTextArea.setText(encryptedText);
             }
         });
@@ -93,7 +80,7 @@ public class VigenereCipherGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String key = keyTextField.getText();
                 String inputText = inputTextArea.getText();
-                String decryptedText = decrypt(inputText, key);
+                String decryptedText = cipher.decrypt(inputText, key);
                 outputTextArea.setText(decryptedText);
             }
         });
@@ -139,45 +126,4 @@ public class VigenereCipherGUI extends JFrame {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
-
-    public static void main(String[] args) {
-        new VigenereCipherGUI();
-    }
-
-    private String encrypt(String text, String key) {
-        StringBuilder sb = new StringBuilder();
-        int keyIndex = 0;
-        for (char c : text.toCharArray()) {
-            int plainCharIndex = ALPHABET.indexOf(Character.toUpperCase(c));
-            if (plainCharIndex != -1) {
-                int keyCharIndex = ALPHABET.indexOf(Character.toUpperCase(key.charAt(keyIndex % key.length())));
-                int encryptedCharIndex = (plainCharIndex + keyCharIndex) % ALPHABET.length();
-                char encryptedChar = ALPHABET.charAt(encryptedCharIndex);
-                sb.append(Character.isUpperCase(c) ? encryptedChar : Character.toLowerCase(encryptedChar));
-                keyIndex++;
-            } else {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
-    }
-
-    private String decrypt(String text, String key) {
-        StringBuilder sb = new StringBuilder();
-        int keyIndex = 0;
-        for (char c : text.toCharArray()) {
-            int encryptedCharIndex = ALPHABET.indexOf(Character.toUpperCase(c));
-            if (encryptedCharIndex != -1) {
-                int keyCharIndex = ALPHABET.indexOf(Character.toUpperCase(key.charAt(keyIndex % key.length())));
-                int plainCharIndex = (encryptedCharIndex - keyCharIndex + ALPHABET.length()) % ALPHABET.length();
-                char plainChar = ALPHABET.charAt(plainCharIndex);
-                sb.append(Character.isUpperCase(c) ? plainChar : Character.toLowerCase(plainChar));
-                keyIndex++;
-            } else {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
-    }
 }
-

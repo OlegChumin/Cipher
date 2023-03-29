@@ -1,4 +1,4 @@
-package Vigenere_Graphics_Files;
+package Vigenere_GUI_0;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +8,19 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+/**
+ Этот код создает графический интерфейс, который состоит из трех панелей: панель ввода, панель вывода и панель для
+ ввода ключа. Пользователь может ввести текст, выбрать ключ и нажать кнопку "Encrypt" или "Decrypt", чтобы зашифровать
+ или расшифровать текст. Результат выводится в текстовом поле на панели вывода.
+
+ Также в классе есть два метода readFromFile и writeToFile, которые используются для чтения входных данных из файла и
+ записи выходных данных в файл соответственно.
+
+ Методы encrypt и decrypt в этом классе почти идентичны методам в оригинальном классе VigenereCipher, за исключением
+ того, что вместо чтения и записи в файлы они используют текст, введенный пользователем через графический интерфейс, и
+ отображают результаты на панели вывода.
+ * */
 
 public class VigenereCipherGUI extends JFrame {
     private final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -85,35 +98,6 @@ public class VigenereCipherGUI extends JFrame {
             }
         });
 
-        // Создать кнопки для чтения и записи в файл
-        JButton loadButton = new JButton("Load from file");
-        JButton saveButton = new JButton("Save to file");
-
-        // Добавить обработчики событий для кнопок
-        loadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    String fileName = fileChooser.getSelectedFile().getAbsolutePath();
-                    String fileContents = readFromFile(fileName);
-                    inputTextArea.setText(fileContents);
-                }
-            }
-        });
-
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    String fileName = fileChooser.getSelectedFile().getAbsolutePath();
-                    String outputText = outputTextArea.getText();
-                    writeToFile(fileName, outputText);
-                }
-            }
-        });
-
         // Создать панель для кнопок
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -121,8 +105,6 @@ public class VigenereCipherGUI extends JFrame {
         // Добавить кнопки на панель кнопок
         buttonPanel.add(encryptButton);
         buttonPanel.add(decryptButton);
-        buttonPanel.add(loadButton);
-        buttonPanel.add(saveButton);
 
         // Добавить панели на фрейм
         add(inputPanel, BorderLayout.NORTH);
@@ -198,3 +180,4 @@ public class VigenereCipherGUI extends JFrame {
         return sb.toString();
     }
 }
+

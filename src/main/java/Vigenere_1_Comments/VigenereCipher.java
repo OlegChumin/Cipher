@@ -1,4 +1,4 @@
-package VigenereWithComments;
+package Vigenere_1_Comments;
 
 /**
  * Первые четыре строки импортируют классы, необходимые для чтения и записи текстовых файлов. Классы BufferedReader и
@@ -17,10 +17,9 @@ import java.io.FileReader; // класс FileReader из пакета java.io д
 import java.io.FileWriter; // класс FileWriter из пакета java.io для записи символов в файл
 import java.io.IOException; // класс IOException из пакета java.io для обработки ошибок ввода-вывода
 
-
 /**
  * Шифр Виженера (фр. Chiffre de Vigenère) — метод полиалфавитного шифрования буквенного текста с использованием ключевого
- * <p>
+ * слова
  * Этот метод является простой формой многоалфавитной замены. Шифр Виженера изобретался многократно. Впервые этот метод
  * описал Джовани Баттиста Белласо (итал. Giovan Battista Bellaso) в книге La cifra del. Sig. Giovan Battista Bellasо в
  * 1553 году[2], однако в XIX веке получил имя Блеза Виженера[3], французского дипломата. Метод прост для понимания и

@@ -1,4 +1,4 @@
-package VigenereGUI;
+package Vigenere_GUI_V2;
 
 import java.io.*;
 
@@ -6,24 +6,13 @@ public class VigenereCipher {
 
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-//  public static void main(String[] args) {
-//    String key = "KEY"; // Задайте свой ключ здесь
-//    String inputFile = "input.txt"; // Задайте имя входного файла здесь
-//    String outputFile = "output.txt"; // Задайте имя выходного файла здесь
-//
-//    String inputText = readFromFile(inputFile);
-//    String encryptedText = encrypt(inputText, key);
-//    writeToFile(outputFile, encryptedText);
-//
-//    String decryptedText = decrypt(encryptedText, key);
-//    System.out.println(decryptedText); // Вывод расшифрованного текста на консоль
-//  }
-
-
     public VigenereCipher() {
     }
 
     public static String encrypt(String text, String key) {
+        if (key.isEmpty()) {
+            return text;
+        }
         StringBuilder sb = new StringBuilder();
         int keyIndex = 0;
         for (char c : text.toCharArray()) {
@@ -42,6 +31,9 @@ public class VigenereCipher {
     }
 
     public static String decrypt(String text, String key) {
+        if (key.isEmpty()) {
+            return text;
+        }
         StringBuilder sb = new StringBuilder();
         int keyIndex = 0;
         for (char c : text.toCharArray()) {
